@@ -3,14 +3,11 @@ name: CI - Build and Push Docker Image
 on:
   push:
     branches:
-      - master  
+      - master
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
-    env:
-      IMAGE_TAG: ${{ secrets.REGISTRYURL }}/${{ secrets.IMAGENAME }}:latest
 
     steps:
       - name: Checkout code
@@ -22,7 +19,6 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.REGISTRYURL }}
           username: ${{ secrets.REGISTRYUSERNAME }}
           password: ${{ secrets.REGISTRYPASSWORD }}
 
@@ -31,4 +27,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker.io/hazemdmohamed2002/myapp:latest
+          tags: hazemmohamed2002/myapp:latest
