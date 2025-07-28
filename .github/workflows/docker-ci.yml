@@ -31,4 +31,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE_TAG }}
+          tags: docker.io/hazemdmohamed2002/myapp:latest
