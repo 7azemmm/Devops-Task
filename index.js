@@ -93,7 +93,7 @@ app.get('/delete-task', function(req,res){
         res.redirect('back');
     })
     .catch(err => {
-        console.log("Error Deleting Task!!", err);
+        console.log("Error Deleting Task!", err);
         res.redirect('back');
     });
 
