@@ -161,7 +161,7 @@ services:
 
 ## ✅ Part 4: Kubernetes and ArgoCd
 
-# k8s/deploymeny.yaml
+# k8s/deployment.yaml
 ```bash
 apiVersion: apps/v1
 kind: Deployment
