@@ -1,6 +1,6 @@
 ## 📝 Summary
 
-It was a pleasure to work on this DevOps task. I successfully completed the first three parts and made significant progress on the final part related to Kubernetes. Although I researched Kubernetes thoroughly and prepared the deployment script, I was unable to get it fully working due to time constraints.
+It was a pleasure to work on this DevOps task. I successfully completed the first three parts and made significant progress on the final part related to Kubernetes. Although I researched Kubernetes thoroughly and prepared the deployment script, I was unable to get it fully working due to time constraints and i was use t2.micro in which it is insufficient for kubernetes.
 
 ## ✅ Part 1: Dockerization & CI
 I containerized the application by writing a Dockerfile and implemented a CI pipeline using GitHub Actions to automate the continuous integration of the Docker image..
@@ -159,3 +159,64 @@ services:
 ![health checks](./images/healthchecks.PNG)
 ![app deployed](./images/appdeployed.PNG)
 
+## ✅ Part 4: Kubernetes and ArgoCd
+
+# k8s/deploymeny.yaml
+```bash
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: app
+        image: your-dockerhub-username/your-image-name:latest
+        ports:
+        - containerPort: 4000
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 4000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+
+```
+
+# k8s/service.yaml
+
+```bash
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  type: NodePort
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 4000
+      nodePort: 30080
+
+```
+
+## 🚀 Phase 2: Continuous Deployment with ArgoCD
+
+```bash
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+# Check the status of the pods to ensure they are running:
+```bash
+kubectl get pods -n argocd
+```
