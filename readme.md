@@ -179,7 +179,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: your-dockerhub-username/your-image-name:latest
+        image: hazemmohamed2002/myapp:latest
         ports:
         - containerPort: 4000
         livenessProbe:
